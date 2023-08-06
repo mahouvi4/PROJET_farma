@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Pharma &mdash; Colorlib </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('farm/fonts/icomoon/style.css')}}">
+
+    <link rel="stylesheet" href="{{asset('farm/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('farm/css/magnific-popup.css')}}">
+    <link rel="stylesheet" href="{{asset('farm/css/jquery-ui.css')}}">
+    <link rel="stylesheet" href="{{asset('farm/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('farm/css/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{asset('farm/css/aos.css')}}">
+    <link rel="stylesheet" href="{{asset('farm/css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" >
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+      
+                  
+    
+
+    @yield('css')
+</head>
+<body>
+@if(! session('info_adm'))
+                 <script>  
+                    window.location.href="{{url('administrateur/create_login_admin')}}";
+                </script>
+             @endif
+  <div class="site-wrap">
+
+
+    <div class="site-navbar py-2">
+
+      <div class="search-wrap">
+        <div class="container">
+          <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+          <form action="#" method="post">
+            <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+          </form>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="logo">
+            <div class="site-logo">
+              <a href="index.html" class="js-logo-clone">Pharma</a>
+            </div>
+          </div>
+          <div class="main-nav d-none d-lg-block">
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+              <ul class="site-menu js-clone-nav d-none d-lg-block">
+               
+                <li class="active"><a href="shop.html">Home</a></li>
+                <li class="has-children">
+                  <a href="{{url('formulaire_pharmacie/cadas/far')}}">ADD Pharmacy</a>
+                  <ul class="dropdown">
+                    <li><a href="{{url('admin/list_all_custumer_admin')}}">CUSTUMER LIST</a></li>
+                    <li class="has-children">
+                      <a href="{{url('admin/list_medico')}}">DRUG LIST</a>
+                      <ul class="dropdown">
+                        <li><a href="{{url('admin/contact_all_client')}}">SEND TO ALL COSTUMERS</a></li>
+                        <li><a href="#">Diet &amp; Nutrition</a></li>
+                        <li><a href="#">Tea &amp; Coffee</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="{{url('admin/contact_all_client')}}">SEND TO ALL COSTUMERS</a></li>
+                    <li><a href="{{url('admin/contact_all_pharmacie')}}">SEND TO ALL PHARMACY</a></li>
+
+                  </ul>
+                </li>
+            
+              </ul>
+            </nav>
+          </div>
+          <div class="icons">
+            <a href="cart.html" class="icons-btn d-inline-block bag">
+           
+              
+            </a>
+            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0">
+            <a href="{{url('destroy_session_pharmacie')}}">Home</a> <span class="mx-2 mb-0">/</span> 
+            <strong class="text-black"> Pharmacy List</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+
+      <div class="container">
+      @php
+      $dat = $dato ;
+				$h_ouv = 0;
+				$h_dif1 = 0;
+				$h_ferm = 0;
+				$h_at = 0;
+				$h_dif2 = 0;
+				$decision = 0;
+				$x = 0;
+        $y = 0;
+			  $b = 0;
+    
+		  @endphp
+       <div class="conf"></div>
+        <div class="row mb-5">
+      
+          <form class="col-md-12" method="post">
+          <a href="{{url('admin/list_reclam_client')}}"><button type="button" class="btn btn-dark btn-md btn-block" style="background-color: #0B4C64">complaint customer no answered  ♣<h3 style="color:#fff">({{$complaint_cli_0}})</h1></button></a><br> 
+
+          
+          <a href="{{url('admin/list_comentaire')}}"><button type="button" class="btn btn-dark btn-md btn-block" style="background-color: #21372f">Customer reviews♣<h3 style="color:blue">({{$comment_count}})</h1></button></a><br> 
+
+          <a href="{{url('admin/red_reclamation')}}"><button type="button" class="btn btn-dark btn-md btn-block" style="background-color: dark">New Message From Pharmacy♣<h3 style="color:#ff0f5b">({{$reclam_count}})</h1></button></a><br> 
+          
+          <a href="{{url('admin/list_all_order')}}"><button type="button" class="btn btn-success btn-md btn-block" style="background-color: #020a1c">Order not delivered♣<h3 style="color:#4dd4f2">({{$list_count_order}})</h1></button></a><br> 
+
+          <a href="{{url('admin/restore_chambre')}}"><button type="button" class="btn btn-success btn-md btn-block" style="background-color: #451452">Restore Pharmacy♣</button></a><br> 
+
+          
+          <button type="button" class="btn btn-primary btn-md btn-block" id="aplyx">Apply Commission♣</button><br>
+
+          <button type="button" class="btn btn-primary btn-md btn-block" id="aplox" style="background-color:#c6c6c9;color:#000">Apply Fix Number♣</button><br>
+          
+
+            <div class="site-blocks-table">
+              <table class="table table-bordered">
+              @include('mood')
+             
+                <thead>
+                  
+                  <tr>
+                  @include('fix_number')
+                    
+                    <th class="product-name">Picture</th>
+                    <th class="product-total">Name</th>
+                    <th class="product-name">Email</th>
+                    <th class="product-total">Password</th>
+                    <th class="product-total">Address</th>
+                    <th class="product-total">CNPJ</th>
+                    <th class="product-total">Tel</th>
+                    <th class="product-total">Certificate</th>
+                    <th class="product-total">Status</th>
+                    <th class="product-total">Comission</th>
+                    <th class="product-total">ACTION</th>
+           
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                    @foreach ($list_pharma as $item)
+                        
+                    @php
+
+             $h_ouv = $item->on_time;
+            $h_ferm  = $item->close_time;
+
+            $x = strtotime($h_ouv);
+            $y = strtotime($h_ferm);
+            
+          $dat = $dato ;
+          $b = strtotime($dat);
+        
+        
+            if(($b >= $x) && ($b <= $y)){
+              $decision = 1;
+            }else{
+              $decision = 2;
+            }
+
+            
+           @endphp
+                  <tr>
+
+                  <td class="product-thumbnail">
+                           <img src="{{asset('Pharmacie/'.$item->photo)}}" alt="" height="82px" width="88px" style="border-radius:72px"><br>
+                           @if($decision === 1)
+					  <span style="font-family:Cambria;color:rgb(24, 182, 230)"><i class="fa-solid fa-time-clock" style="color: rgb(243, 40, 165)"></i>Opened -><strong>Close at</strong> {{$item->close_time}}</span><br>
+						@elseif($decision === 2)
+						<span style="font-family:Cambria;color:#ff0f5b"><i class="fa-solid fa-time-clock"></i>Closed</span><br>
+					   @endif
+                          </td>
+                    
+                   <td>{{$item->name_pharma}}</td>
+                   <td>{{$item->email}} <br><br>
+                   <i class="fas fa-thumbs-up likux" style="color:#31F9F6;margin-top:-15px;font-size:3rem"></i><span style="color:#313030;font-size:2rem;font-family:aharoni">{{$item->count_like}}</span>
+                  </td>
+                   <td>{{$item->password}}</td>
+                   <td>{{$item->address}}</td>
+                   <td>{{$item->cpf}}</td>
+                   <td>{{$item->tel}}</td>
+                  
+                      @if($item->certificatx !== NULL)
+                      <td><i class="fa-sharp fa-solid fa-check" style="font-size:2.5rem;color:green"></i></td>
+
+                      @else
+                      <td><p style="font-size:2.5rem;color:red">X</p></td>
+                      @endif
+                 
+                   
+
+
+                              @if($item->statut == 1)
+                              <td style="color:green">Readable</td>
+                              @else
+                              <td style="color:red"> Unreadable</td>
+                            
+                              @endif
+                   <td>{{$item->comission}}%</td>
+                   <td>
+
+                  <a href="{{asset('admin/edit_pharma/'.$item->id)}}" class="btn btn-warning height-auto btn-sm mt-2" style="width:100%">Edit</a>
+                  <a href="#" class="btn btn-danger height-auto btn-sm mt-2" onclick="delete_pharma({{$item->id}})" style="width:100%">Delete</a>
+                  <a href="{{url('admin/create_login3_pharma/'.$item->id)}}" class="btn btn-dark height-auto btn-sm mt-2" style="width:100%" >Paid Salary</a>
+                  <a href="{{url('admin/create_login2_pharma/'.$item->id)}}" class="btn btn-info height-auto btn-sm mt-2" style="width:100%">Info</a>
+
+                   </td>
+       
+                
+                    @endforeach
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+    
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row mb-5">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <a href="#" onclick="destroy_session_adm()"><button class="btn btn-primary btn-md btn-block">Sign Out</button></a>
+              </div>
+              <div class="col-md-6">
+              </div>
+            </div>
+           
+          </div>
+
+       
+          
+          
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row mb-5">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <a href="#"><button class="btn btn-primary btn-md btn-block">{{$list_pharma->links()}}</button></a>
+              </div>
+              <div class="col-md-6">
+              </div>
+            </div>
+           
+          </div>
+      </div>
+    </div>
+    <div class="site-section bg-secondary bg-image" style="background-image: url('{{asset('farm/images/bg_2.jpg')}}');">
+      <div class="container">
+          <div class="row align-items-stretch">
+              <div class="col-lg-6 mb-5 mb-lg-0">
+                  <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('{{asset('farm/images/bg_1.jpg')}}');">
+                      <div class="banner-1-inner align-self-center">
+                          <h2>Pharma Products</h2>
+                          <p>Health is like wealth, it is not enough to have it, you have to know how to keep it.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+              <div class="col-lg-6 mb-5 mb-lg-0">
+                  <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('{{asset('farm/images/bg_2.jpg')}}');">
+                      <div class="banner-1-inner ml-auto  align-self-center">
+                          <h2>Rated by Experts</h2>
+                          <p>Health is like wealth, it is not enough to have it, you have to know how to keep it.
+                          </p>
+                      </div>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+
+            <div class="block-7">
+              <h3 class="footer-heading mb-4">About Us</h3>
+              <p>Health is like wealth, it is not enough to have it, you have to know how to keep it.</p>
+            </div>
+
+          </div>
+          <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+            <h3 class="footer-heading mb-4">Quick Links</h3>
+            <ul class="list-unstyled">
+              <li><a href="#">Supplements</a></li>
+              <li><a href="#">Vitamins</a></li>
+              <li><a href="#">Diet &amp; Nutrition</a></li>
+              <li><a href="#">Tea &amp; Coffee</a></li>
+            </ul>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="block-5 mb-5">
+                <h3 class="footer-heading mb-4">Contact Info</h3>
+                <ul class="list-unstyled">
+                    <li class="address">Travessa Raiumundo Maciel Pereira 19 , Nossa Senhora de Fatima 62900-000, Russas-Ceara Brasil</li>
+                    <li class="phone"><a href="tel:// +55 (85) 996776852">+55 (84) 99808-7249</a></li>
+                    <li class="email">manuagondanou229@gmail.com</li>
+                </ul>
+            </div>
+
+        </div>
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <p>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;
+              <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+              with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank"
+                class="text-primary">Colorlib</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="{{asset('farm/js/jquery-3.3.1.min.js')}}"></script>
+  <script src="{{asset('farm/js/jquery-ui.js')}}"></script>
+  <script src="{{asset('farm/js/popper.min.js')}}"></script>
+  <script src="{{asset('farm/js/bootstrap.min.js')}}"></script>
+  <script src="{{asset('farm/js/owl.carousel.min.js')}}"></script>
+  <script src="{{asset('farm/js/jquery.magnific-popup.min.js')}}"></script>
+  <script src="{{asset('farm/js/aos.js')}}"></script>
+  <script src="{{asset('farm/js/main.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+        <script>
+              function delete_pharma(id){
+                alert('Are you sure deleted this Pharmacy ??');
+                $.get("{{url('admin/delete_pharma')}}/"+id,{}, function(e){
+                 $(".conf").html('pharmacy deleted successfull !!').addClass('alert alert-info');
+                    window.location.href="{{url('admin/list_phamacie')}}";
+                   // e.preventdefault();
+                })
+              }
+          </script>
+
+  
+          
+        
+              <script>
+                   $(function (){
+                       $("#aplyx").on("click",{},function(){
+                        $("#genix").modal('show');
+                       });
+                   });
+               </script>
+
+
+                         <script>
+
+                          function destroy_session_adm(){
+                        $.ajax({
+                          type:"get",
+                          url:"{{url('administrateur/destroy_session_adm')}}",
+                          success:function(response){
+                           if(response.status==200){
+                            alert('session tuée');
+                           window.location.href="{{url('administrateur/create_login_admin')}}";
+                           }
+                          }
+                        });
+                     }
+                </script>
+
+                <script>
+                    $(function(){
+                       $("#aplox").on("click",{},function(){
+                          
+                            $("#gemo").modal('show');
+                        
+                       
+
+                       })
+                    })
+                </script>
+
+                
+</body>
+
+</html>
